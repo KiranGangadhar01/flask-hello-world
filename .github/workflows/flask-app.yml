@@ -34,6 +34,12 @@ jobs:
           url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
   
         steps:
+          - uses: azure/docker-login@v1
+            with:
+              login-server: checkcontainertest.azurecr.io
+              username: ${{ secrets.AZURE_CR_USERNAME }}
+              password: ${{ secrets.AZURE_CR_PASSWORD }}
+        
           - name: Deploy to Azure Web App
             id: deploy-to-webapp
             uses: azure/webapps-deploy@v2
